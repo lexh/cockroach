@@ -74,7 +74,7 @@ func runInit(cmd *commander.Command, args []string) {
 	clusterID := uuid.New()
 	e := engine.NewRocksDB(proto.Attributes{}, args[0], 1<<20)
 	stopper := util.NewStopper()
-	if _, err := server.BootstrapCluster(clusterID, e, stopper); err != nil {
+	if _, err := server.BootstrapCluster(clusterID, []engine.Engine{e}, stopper); err != nil {
 		log.Errorf("unable to bootstrap cluster: %s", err)
 		return
 	}
